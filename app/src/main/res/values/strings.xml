@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">horoka</string>
+    <string name="horokaNotificationChannel">horokaNotificationChannel</string>
+    <string name="notificationChannelDescription">Notification channel for Horoka application</string>
+</resources>
