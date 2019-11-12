@@ -8,7 +8,11 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
+import com.unsplash.pickerandroid.photopicker.UnsplashPhotoPicker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import timber.log.Timber
@@ -20,23 +24,16 @@ class MainActivity : AppCompatActivity() {
         Timber.plant(Timber.DebugTree())
         setContentView(R.layout.activity_main)
 
-        val viewModel : horokaViewModel = ViewModelProviders.of(this).get(horokaViewModel::class.java)
+//        UnsplashPhotoPicker.init(application,getString(R.string.accessKey),getString(R.string.secretKey))
 
-        val imageView = findViewById<ImageView>(R.id.image)
-        imageView.setOnClickListener {
-            viewModel.notifyMe(this)
-        }
-        Glide.with(this).load(Uri.parse("https://images.unsplash.com/photo-1558980664-10e7170b5df9")).into(imageView)
+//        val viewModel : horokaViewModel = ViewModelProviders.of(this).get(horokaViewModel::class.java)
+
+        main_recycler_view.setHasFixedSize(true)
+        main_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//        main_recycler_view.layoutManager = LinearLayoutManager(this)
+        main_recycler_view.adapter = PhotoAdapter()
+
+//        Glide.with(this).load(Uri.parse("https://images.unsplash.com/photo-1558980664-10e7170b5df9")).into(imageView)
 //        imageView.setImageURI(Uri.parse("https://images.unsplash.com/photo-1558980664-10e7170b5df9"))
     }
 }
-//https://images.unsplash.com/photo-1525206809752-65312b959c88
-//https://images.unsplash.com/photo-1496429946712-acb085074b51
-//https://images.unsplash.com/photo-1516967124798-10656f7dca28
-//https://images.unsplash.com/photo-1508257082719-44cae0c0044d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80
-//https://images.unsplash.com/photo-1449495169669-7b118f960251?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80
-//https://images.unsplash.com/photo-1508662072197-438d38a81a97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80
-//https://images.unsplash.com/photo-1494247872528-c25b4623cf0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80
-//https://images.unsplash.com/photo-1518541511379-fb7260465800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80
-//https://images.unsplash.com/photo-1425421543490-6a133856ff32?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80
-//https://images.unsplash.com/photo-1473082538761-d4c7cd3f5e91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2112&q=80
