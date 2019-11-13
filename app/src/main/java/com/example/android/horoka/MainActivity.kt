@@ -30,10 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         main_recycler_view.setHasFixedSize(true)
         main_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-//        main_recycler_view.layoutManager = LinearLayoutManager(this)
-        main_recycler_view.adapter = PhotoAdapter()
 
-//        Glide.with(this).load(Uri.parse("https://images.unsplash.com/photo-1558980664-10e7170b5df9")).into(imageView)
-//        imageView.setImageURI(Uri.parse("https://images.unsplash.com/photo-1558980664-10e7170b5df9"))
+        main_recycler_view.adapter = PhotoAdapter()
     }
 }

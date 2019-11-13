@@ -31,8 +31,8 @@ init {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.context))
-        Timber.i("creating ViewHolder")
-//        Thread.sleep(100)
+//        Timber.i("creating ViewHolder")
+
         return PhotoViewHolder(binding)
     }
 
@@ -41,13 +41,11 @@ init {
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        Timber.e("Loading URI: " + mListOfPhotos.get(position))
+//        Timber.e("Loading URI: " + mListOfPhotos.get(position))
         holder.binding.imageSrc = mListOfPhotos.get(position)
         holder.binding.executePendingBindings()
     }
     //    ViewHolder for Adapter
-    class PhotoViewHolder(val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class PhotoViewHolder(val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
