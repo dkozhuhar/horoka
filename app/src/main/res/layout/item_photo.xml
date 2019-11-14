@@ -15,7 +15,7 @@
             tools:layout_width="100dp"
             tools:layout_height="100dp"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/photo"
+
             android:padding="4dp"
             app:img_src="@{imageSrc}"
             app:layout_constraintBottom_toBottomOf="parent"
