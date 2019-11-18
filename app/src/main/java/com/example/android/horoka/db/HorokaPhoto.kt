@@ -1,10 +1,12 @@
-package com.example.android.horoka
+package com.example.android.horoka.db
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Entity
+@Entity(tableName = "photos")
 data class HorokaPhoto(
     @PrimaryKey val id: String,
     val created_at: String,
@@ -14,6 +16,6 @@ data class HorokaPhoto(
     val likes: Int,
     val description: String?,
     val alt_description: String?,
-    val urls: String,
-    val download_location: String
+    @Json(name = "urls") val raw_url: String,
+    @Json(name = "links") val download_location: String
 )

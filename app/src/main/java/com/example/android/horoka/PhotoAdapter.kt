@@ -43,7 +43,9 @@ init {
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
 //        Timber.e("Loading URI: " + mListOfPhotos.get(position))
         holder.binding.imageSrc = mListOfPhotos.get(position)
+
         holder.binding.executePendingBindings()
+
     }
     //    ViewHolder for Adapter
     class PhotoViewHolder(val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root)
