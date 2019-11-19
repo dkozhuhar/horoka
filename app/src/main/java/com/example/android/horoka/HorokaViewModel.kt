@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.android.horoka.api.apiService
+import com.example.android.horoka.db.HorokaDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,6 +16,7 @@ import timber.log.Timber
 class HorokaViewModel() : ViewModel(){
 
     val vieModelJob = Job()
+
 
     val viewModelScope = CoroutineScope(Dispatchers.Main + vieModelJob)
 
@@ -27,6 +29,7 @@ class HorokaViewModel() : ViewModel(){
         Timber.i("getPhotosFromUnsplash called")
         viewModelScope.launch {
             try {
+                val dbDao = HorokaDb.getInstance(context).horokaDao
                 val todayPhoto = apiService.getPhotos(context.getString(R.string.accessKey),"love",10)
                 Timber.i(todayPhoto.toString())
             }
