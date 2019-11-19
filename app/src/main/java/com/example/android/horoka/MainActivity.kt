@@ -16,14 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val dbDao = HorokaDb.getInstance(this).horokaDao
-
-        val viewModel : HorokaViewModel = ViewModelProviders.of(this).get(HorokaViewModel::class.java)
-        button.setOnClickListener { viewModel.getPhotosFromUnsplash(this) }
+        val viewModel : HorokaViewModel = ViewModelProviders.of(this,HorokaViewModel.Factory(application)).get(HorokaViewModel::class.java)
+        button.setOnClickListener { viewModel.getPhotosFromUnsplash() }
         main_recycler_view.setHasFixedSize(true)
         main_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        main_recycler_view.adapter = PhotoAdapter()
+        main_recycler_view.adapter = PhotoAdapter(viewModel.getPhotosFromUnsplash())
 
     }
 }

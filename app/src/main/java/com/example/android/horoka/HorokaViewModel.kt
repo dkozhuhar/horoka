@@ -1,7 +1,9 @@
 package com.example.android.horoka
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.android.horoka.api.apiService
@@ -13,29 +15,43 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
-class HorokaViewModel() : ViewModel(){
+class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
-    val vieModelJob = Job()
+    private val vieModelJob = Job()
 
+    private val dbDao = HorokaDb.getInstance(app).horokaDao
 
-    val viewModelScope = CoroutineScope(Dispatchers.Main + vieModelJob)
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + vieModelJob)
 
-    fun notifyMe(context: Context) {
+    fun notifyMe() {
         val downloadRequest = OneTimeWorkRequest.Builder(DownloadWorker::class.java).build()
-        WorkManager.getInstance(context).enqueue(downloadRequest)
+        WorkManager.getInstance(app).enqueue(downloadRequest)
     }
 
-    fun getPhotosFromUnsplash(context: Context){
+    fun getPhotosFromUnsplash() {
         Timber.i("getPhotosFromUnsplash called")
         viewModelScope.launch {
-            try {
-                val dbDao = HorokaDb.getInstance(context).horokaDao
-                val todayPhoto = apiService.getPhotos(context.getString(R.string.accessKey),"love",10)
-                Timber.i(todayPhoto.toString())
+            if (dbDao.getAllPhotos().isEmpty()) {
+                try {
+
+                    val photos =
+                        apiService.getPhotos(app.getString(R.string.accessKey), "love", 10)
+                    dbDao.insertPhoto(*photos.toTypedArray())
+                    Timber.i(photos.toString())
+                } catch (t: Throwable) {
+                    Timber.e(t)
+                }
             }
-            catch (t: Throwable) {
-                Timber.e(t)
+        }
+    }
+
+    class Factory(val app: Application) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(HorokaViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return HorokaViewModel(app) as T
             }
+            throw IllegalArgumentException("Unable to construct viewmodel")
         }
     }
 }
