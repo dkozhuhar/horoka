@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
-//import com.unsplash.pickerandroid.photopicker.data.UnsplashPhoto
+
 
 class HorokaViewModel() : ViewModel(){
 
@@ -27,7 +27,8 @@ class HorokaViewModel() : ViewModel(){
         Timber.i("getPhotosFromUnsplash called")
         viewModelScope.launch {
             try {
-                apiService.getPhotos(context.getString(R.string.accessKey),"love",10)
+                val todayPhoto = apiService.getPhotos(context.getString(R.string.accessKey),"love",10)
+                Timber.i(todayPhoto.toString())
             }
             catch (t: Throwable) {
                 Timber.e(t)

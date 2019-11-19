@@ -3,7 +3,7 @@ package com.example.android.horoka.api
 
 import com.example.android.horoka.db.HorokaPhoto
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+//import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,7 +13,7 @@ private const val BASE_URL = "https://api.unsplash.com/"
 
 val moshi = Moshi.Builder()
     .add(ResponseAdapter())
-    .add(KotlinJsonAdapterFactory())
+//    .add(KotlinJsonAdapterFactory())
     .build()
 
 val retrofit = Retrofit.Builder()
