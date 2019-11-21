@@ -1,5 +1,6 @@
 package com.example.android.horoka.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,11 +9,10 @@ import androidx.room.Query
 @Dao
 interface HorokaDao {
     @Query("SELECT * FROM photos")
-    fun getAllPhotos(): List<HorokaPhoto>
-
+    fun getAllPhotos(): LiveData<List<HorokaPhoto>>
     @Insert
-    fun insertPhoto(vararg photos: HorokaPhoto)
+    suspend fun insertPhoto(vararg photos: HorokaPhoto)
 
     @Query("DELETE FROM photos")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

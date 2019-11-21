@@ -8,10 +8,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.android.horoka.api.apiService
 import com.example.android.horoka.db.HorokaDb
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 
@@ -21,7 +18,9 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val dbDao = HorokaDb.getInstance(app).horokaDao
 
-    private val viewModelScope = CoroutineScope(Dispatchers.Main + vieModelJob)
+    private val viewModelScope = CoroutineScope(Dispatchers.IO + vieModelJob)
+
+    val horokaPhotos = dbDao.getAllPhotos()
 
     fun notifyMe() {
         val downloadRequest = OneTimeWorkRequest.Builder(DownloadWorker::class.java).build()
@@ -31,11 +30,9 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     fun getPhotosFromUnsplash() {
         Timber.i("getPhotosFromUnsplash called")
         viewModelScope.launch {
-            if (dbDao.getAllPhotos().isEmpty()) {
+            if (dbDao.getAllPhotos().value?.isEmpty() ?: true) {
                 try {
-
-                    val photos =
-                        apiService.getPhotos(app.getString(R.string.accessKey), "love", 10)
+                    val photos = apiService.getPhotos(app.getString(R.string.accessKey), "love", 10)
                     dbDao.insertPhoto(*photos.toTypedArray())
                     Timber.i(photos.toString())
                 } catch (t: Throwable) {
