@@ -1,7 +1,9 @@
 package com.example.android.horoka
 
+import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -15,7 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Timber.plant(Timber.DebugTree())
         setContentView(R.layout.activity_main)
-        val displayWidth = windowManager.defaultDisplay.getSize()
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        val screenWidth = displayMetrics.widthPixels
+
 
         val viewModel : HorokaViewModel = ViewModelProviders.of(this,HorokaViewModel.Factory(application)).get(HorokaViewModel::class.java)
         button.setOnClickListener { viewModel.getPhotosFromUnsplash() }
@@ -23,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         main_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         viewModel.horokaPhotos.observe(this, Observer {
-            main_recycler_view.adapter = PhotoAdapter(it)
+            main_recycler_view.adapter = PhotoAdapter(it, screenWidth/2)
         })
 
 

@@ -13,7 +13,7 @@ import com.example.android.horoka.db.HorokaPhoto
 import kotlinx.android.synthetic.main.item_photo.view.*
 import timber.log.Timber
 
-class PhotoAdapter(val photos: List<HorokaPhoto>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(val photos: List<HorokaPhoto>, val width: Int) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 init {
     Timber.i("Initializing")
 }
@@ -42,8 +42,9 @@ init {
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+
 //        Timber.e("Loading URI: " + mListOfPhotos.get(position))
-        holder.binding.imageSrc = photos.get(position).raw_url
+        holder.binding.imageSrc = photos.get(position).raw_url + "&fm=jpg&crop=entropy&cs=tinysrgb&w=" + width.toString()
 
         holder.binding.executePendingBindings()
 
@@ -51,4 +52,3 @@ init {
     //    ViewHolder for Adapter
     class PhotoViewHolder(val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root)
 }
-
