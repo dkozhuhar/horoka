@@ -13,26 +13,11 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
+//    Initiate nav_host
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.plant(Timber.DebugTree())
         setContentView(R.layout.activity_main)
-
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        val screenWidth = displayMetrics.widthPixels
-
-
-        val viewModel : HorokaViewModel = ViewModelProviders.of(this,HorokaViewModel.Factory(application)).get(HorokaViewModel::class.java)
-        button.setOnClickListener { viewModel.getPhotosFromUnsplash() }
-        main_recycler_view.setHasFixedSize(true)
-        main_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-        viewModel.horokaPhotos.observe(this, Observer {
-            main_recycler_view.adapter = PhotoAdapter(it, screenWidth/2)
-        })
-
-
     }
 }
