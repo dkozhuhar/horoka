@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.horoka.databinding.ItemPhotoBinding
@@ -44,8 +46,14 @@ init {
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
 
 //        Timber.e("Loading URI: " + mListOfPhotos.get(position))
-        holder.binding.imageSrc = photos.get(position).raw_url + "&fm=jpg&crop=entropy&cs=tinysrgb&w=" + width.toString()
-
+        val horokaPhoto = photos.get(position)
+        holder.binding.horokaPhoto = horokaPhoto
+//            .raw_url + "&fm=jpg&crop=entropy&cs=tinysrgb&w=" + width.toString()
+        val navController = Navigation.findNavController()
+        val action = OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(horokaPhoto.id)
+        holder.binding.itemPhotoIv.setOnClickListener (
+            Navigation.createNavigateOnClickListener(action)
+        )
         holder.binding.executePendingBindings()
 
     }

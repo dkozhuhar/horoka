@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="imageSrc"
-            type="String" />
+            name="horokaPhoto"
+            type="com.example.android.horoka.db.HorokaPhoto" />
     </data>
 
     <ImageView
@@ -16,8 +16,9 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:padding="4dp"
-        app:img_src="@{imageSrc}"
+        app:img_src="@{horokaPhoto.raw_url}"
 
+        android:contentDescription="@{horokaPhoto.alt_description}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
