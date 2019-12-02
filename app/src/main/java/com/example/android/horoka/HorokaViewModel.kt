@@ -8,6 +8,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.android.horoka.api.apiService
 import com.example.android.horoka.db.HorokaDb
+import com.example.android.horoka.db.HorokaPhoto
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -21,6 +22,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     private val viewModelScope = CoroutineScope(Dispatchers.IO + vieModelJob)
 
     val horokaPhotos = dbDao.getAllPhotos()
+
 
     fun notifyMe() {
         val downloadRequest = OneTimeWorkRequest.Builder(DownloadWorker::class.java).build()
@@ -40,6 +42,14 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
                 }
             }
         }
+    }
+
+    fun getPhotoById(id: String): HorokaPhoto? {
+        val horokaPhoto: HorokaPhoto? =
+        viewModelScope.launch {
+            return@launch dbDao.getPhotoById(id)
+        }.
+        return horokaPhoto
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {

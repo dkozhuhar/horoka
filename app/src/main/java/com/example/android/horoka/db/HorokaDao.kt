@@ -10,9 +10,13 @@ import androidx.room.Query
 interface HorokaDao {
     @Query("SELECT * FROM photos")
     fun getAllPhotos(): LiveData<List<HorokaPhoto>>
+
     @Insert
     suspend fun insertPhoto(vararg photos: HorokaPhoto)
 
     @Query("DELETE FROM photos")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM photos WHERE ID = :id")
+    suspend fun getPhotoById(id: String) : HorokaPhoto?
 }

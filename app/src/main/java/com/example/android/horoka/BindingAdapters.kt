@@ -18,11 +18,11 @@ fun urlBind(imageView: ImageView, imgUrl: String?){
     }
 }
 
-@BindingAdapter("mOnClickListener")
-fun mOnClickListener(view: ImageView, imageId: String) {
-    val navController = Navigation.findNavController(view.)
-    val action = OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(imageId)
-    view.setOnClickListener {
-        it.findNavController().navigate(action)
-    }
-}
+//@BindingAdapter("mOnClickListener")
+//fun mOnClickListener(view: ImageView, imageId: String) {
+//    val navController = Navigation.findNavController(view.)
+//    val action = OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(imageId)
+//    view.setOnClickListener {
+//        it.findNavController().navigate(action)
+//    }
+//}
