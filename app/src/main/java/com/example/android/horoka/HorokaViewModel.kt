@@ -44,12 +44,13 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun getPhotoById(id: String): HorokaPhoto? {
-        val horokaPhoto: HorokaPhoto? =
-        viewModelScope.launch {
-            return@launch dbDao.getPhotoById(id)
-        }.
-        return horokaPhoto
+    suspend fun getPhotoById(id: String): HorokaPhoto? {
+        return dbDao.getPhotoById(id)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        vieModelJob.cancel()
     }
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
