@@ -7,6 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.navArgs
+import com.example.android.horoka.databinding.FragmentDetailBinding
+import com.example.android.horoka.db.HorokaPhoto
+import kotlinx.coroutines.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,19 +27,43 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    val horokaPhoto =
+    val detailFragmentJob = Job()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+//get instance of a viewmodel
+        val viewModel: HorokaViewModel =
+            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
+                .get(HorokaViewModel::class.java)
+
+//        inflating binding
+        val binding = FragmentDetailBinding.inflate(inflater)
+        binding.setLifecycleOwner(this)
+
+//        get arguments from navigations safeargs
+        val args: DetailFragmentArgs by navArgs()
+
+//        Setting coroutine
+        val detailFragmentScope = CoroutineScope(Dispatchers.Main + detailFragmentJob)
+
+//      getting horokaPhoto from viewmodel using arguments async
+        val horokaPhoto = detailFragmentScope.launch {
+            binding.horokaPhoto = viewModel.getPhotoById(args.imageId)
+            binding.executePendingBindings()
+        }
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
 
 
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        detailFragmentJob.cancel()
     }
 }
