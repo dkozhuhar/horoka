@@ -43,12 +43,6 @@ init {
         holder.itemView.setOnClickListener{
             onItemCLickListener(holder.binding)
         }
-//            .raw_url + "&fm=jpg&crop=entropy&cs=tinysrgb&w=" + width.toString()
-
-//        val action = OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(horokaPhoto.id)
-//        holder.binding.itemPhotoIv.setOnClickListener (
-//            Navigation.createNavigateOnClickListener(action)
-//        )
         holder.binding.executePendingBindings()
 
     }

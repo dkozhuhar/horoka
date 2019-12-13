@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.example.android.horoka.databinding.FragmentDetailBinding
+
 import com.example.android.horoka.db.HorokaPhoto
 import kotlinx.coroutines.*
 
@@ -41,6 +42,7 @@ class DetailFragment : Fragment() {
 
 //        inflating binding
         val binding = FragmentDetailBinding.inflate(inflater)
+
         binding.setLifecycleOwner(this)
 
 //        get arguments from navigations safeargs

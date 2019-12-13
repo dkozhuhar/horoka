@@ -48,6 +48,10 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
         return dbDao.getPhotoById(id)
     }
 
+    fun savePhoto(url: String) {
+
+    }
+
     override fun onCleared() {
         super.onCleared()
         vieModelJob.cancel()
