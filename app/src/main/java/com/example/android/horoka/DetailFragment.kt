@@ -43,6 +43,7 @@ class DetailFragment : Fragment() {
 //        inflating binding
         val binding = FragmentDetailBinding.inflate(inflater)
 
+        binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
 //        get arguments from navigations safeargs

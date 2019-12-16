@@ -1,6 +1,12 @@
 package com.example.android.horoka
 
 import android.app.Application
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -48,8 +54,17 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
         return dbDao.getPhotoById(id)
     }
 
-    fun savePhoto(url: String) {
+    fun savePhoto(photo: HorokaPhoto) {
+        val downloadFolder = app.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        val resolver = app.contentResolver
+        val downloadRequest = DownloadManager.Request(Uri.parse(photo.raw_url + "&q=85&fm=jpg&crop=entropy&cs=srgb"))
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
+            .setTitle(photo.alt_description)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"/test.jpg")
 
+        val downloadManager = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadID = downloadManager.enqueue(downloadRequest)
     }
 
     override fun onCleared() {
