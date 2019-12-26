@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface HorokaDao {
-    @Query("SELECT * FROM photos")
+    @Query("SELECT * FROM photos ORDER BY added_datetime DESC")
     fun getAllPhotos(): LiveData<List<HorokaPhoto>>
 
     @Insert

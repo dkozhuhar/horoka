@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import okhttp3.internal.Internal.instance
 
-@Database(entities = arrayOf(HorokaPhoto::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(HorokaPhoto::class), version = 2, exportSchema = false)
 abstract class HorokaDb : RoomDatabase(){
     abstract val horokaDao: HorokaDao
 
@@ -19,7 +19,9 @@ abstract class HorokaDb : RoomDatabase(){
             synchronized(this) {
 
                 if(INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,HorokaDb::class.java,"photo_db").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,HorokaDb::class.java,"photo_db")
+                        .fallbackToDestructiveMigration()
+                        .build()
                 }
                 return INSTANCE!!
             }

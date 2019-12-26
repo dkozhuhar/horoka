@@ -17,7 +17,8 @@ class ResponseAdapter {
             unsplashPhoto.description,
             unsplashPhoto.alt_description,
             unsplashPhoto.urls.raw,
-            unsplashPhoto.links.download_location
+            unsplashPhoto.links.download_location,
+            System.currentTimeMillis() / 1000L
         )
     }
 
