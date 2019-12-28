@@ -41,8 +41,8 @@ fun notify(context: Context) {
 
     val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.horokaNotificationChannel))
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle("Title")
-        .setContentText("Description")
+        .setContentTitle(context.getString(R.string.notification_title))
+        .setContentText(context.getString(R.string.notification_description))
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)

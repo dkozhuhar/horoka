@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">horoka</string>
-    <string name="horokaNotificationChannel">horokaNotificationChannel</string>
-    <string name="notificationChannelDescription">Notification channel for Horoka application</string>
+    <string name="horokaNotificationChannel" translatable="false">horokaNotificationChannel</string>
+    <string name="notificationChannelDescription" translatable="false">Notification channel for Horoka application</string>
     <string name="button_download">Download button</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notification_title">Your Phone</string>
+    <string name="notification_description">loves you</string>
 </resources>

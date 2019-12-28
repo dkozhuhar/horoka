@@ -32,7 +32,7 @@ class OverviewFragment : Fragment() {
         val viewModel: HorokaViewModel =
             ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
                 .get(HorokaViewModel::class.java)
-        view.button.setOnClickListener { viewModel.getPhotosFromUnsplash() }
+        view.button.setOnClickListener { viewModel.notifyMe() }
         view.main_recycler_view.setHasFixedSize(true)
         view.main_recycler_view.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -43,7 +43,12 @@ class OverviewFragment : Fragment() {
         }
 
         viewModel.horokaPhotos.observe(this, Observer {
+            view.main_recycler_view.adapter = null
+            view.main_recycler_view.layoutManager = null
+            view.main_recycler_view.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             view.main_recycler_view.adapter = PhotoAdapter(it, screenWidth / 2, onItemClickListener)
+//            (view.main_recycler_view.adapter as PhotoAdapter).notifyDataSetChanged()
         })
 
         return view

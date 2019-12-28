@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Хорока</string>
+    <string name="button_download">Скачать</string>
+    <string name="notification_description">любит тебя</string>
+    <string name="notification_title">Дивока</string>
+</resources>
