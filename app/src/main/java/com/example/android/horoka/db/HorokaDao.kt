@@ -16,4 +16,7 @@ interface HorokaDao {
 
     @Query("SELECT * FROM photos WHERE ID = :id")
     suspend fun getPhotoById(id: String) : HorokaPhoto?
+
+    @Query("SELECT count(*) FROM photos")
+    fun countPhotos() : Int
 }
