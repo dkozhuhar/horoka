@@ -12,7 +12,7 @@ import timber.log.Timber
 class DownloadWorker(val context: Context, downloadWorkerParameters: WorkerParameters) : CoroutineWorker(context, downloadWorkerParameters){
     override suspend fun doWork(): Result {
 //      sleep was introduced for testing purposes
-        sleep()
+//        sleep()
         val dbDao = HorokaDb.getInstance(context).horokaDao
 
         val photo = apiService.getPhotos(context.getString(R.string.accessKey), "love", 1)

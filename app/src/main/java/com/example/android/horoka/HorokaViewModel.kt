@@ -40,7 +40,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .build()
-        val periodicWorkRequest = PeriodicWorkRequest.Builder(DownloadWorker::class.java,1,TimeUnit.DAYS)
+        val periodicWorkRequest = PeriodicWorkRequestBuilder<DownloadWorker>(15,TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
         WorkManager.getInstance(app).enqueueUniquePeriodicWork("GET_LOVE_EVERYDAY",ExistingPeriodicWorkPolicy.KEEP,periodicWorkRequest)
