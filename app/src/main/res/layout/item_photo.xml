@@ -9,7 +9,9 @@
             name="horokaPhoto"
             type="com.example.android.horoka.db.HorokaPhoto" />
     </data>
-
+<!--androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="0dp"
+    android:layout_height="0dp"-->
     <ImageView
         android:id="@+id/item_photo_iv"
         android:layout_width="0dp"
@@ -25,5 +27,5 @@
         tools:layout_height="100dp"
         tools:layout_width="100dp"
         tools:src="@mipmap/ic_launcher" />
-
+<!--/androidx.constraintlayout.widget.ConstraintLayout-->
 </layout>
