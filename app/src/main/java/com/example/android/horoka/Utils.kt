@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.example.android.horoka.db.HorokaPhoto
 import timber.log.Timber
 
 /*
@@ -51,6 +52,10 @@ fun notify(context: Context) {
         // notificationId is a unique int for each notification that you must define
         notify(1, notificationBuilder.build())
     }
+}
+
+suspend fun downloadImageFromUri(horokaPhoto: HorokaPhoto){
+
 }
 /*
 Testing Utils
