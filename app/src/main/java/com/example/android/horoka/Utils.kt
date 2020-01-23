@@ -8,8 +8,9 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.example.android.horoka.db.HorokaPhoto
 import timber.log.Timber
+import java.io.File
+import java.net.URL
 
 /*
 Notification Utils
@@ -54,8 +55,20 @@ fun notify(context: Context) {
     }
 }
 
-suspend fun downloadImageFromUri(horokaPhoto: HorokaPhoto){
-
+suspend fun downloadImageFromUri(filename: String, url: String, context: Context, widthPixels: Int){
+    val file = File(context.filesDir, filename)
+//    download file if it doesn't exist
+    if (!file.exists()) {
+        val urlModified = url.plus("&fm=jpg&crop=entropy&cs=tinysrgb&w=")
+            .plus(widthPixels.toString())
+//            .toUri().buildUpon().scheme("https")
+//            .build()
+        try {
+            val input = URL(urlModified).openStream().buffered().copyTo(file.outputStream())
+        } catch (error: Throwable){
+            Timber.e(error)
+        }
+    }
 }
 /*
 Testing Utils

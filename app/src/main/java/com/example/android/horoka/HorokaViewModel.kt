@@ -5,8 +5,6 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import android.provider.MediaStore
-import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +34,12 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
             if (dbDao.countPhotos() == 0) {
                 getPhotosFromUnsplash()
             }
+//            creating or adding local thumbnails repository
+            var files: Array<String> = app.fileList()
+            val photoIds = dbDao.getAllPhotoIds()
+            for (photoId in photoIds){
+
+            }
         }
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
@@ -44,6 +48,10 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
             .setConstraints(constraints)
             .build()
         WorkManager.getInstance(app).enqueueUniquePeriodicWork("GET_LOVE_EVERYDAY",ExistingPeriodicWorkPolicy.KEEP,periodicWorkRequest)
+        sleep()
+        val workInfo = WorkManager.getInstance(app).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY").get()[0].state
+        Timber.i(workInfo.toString())
+
     }
 
     fun notifyMe() {

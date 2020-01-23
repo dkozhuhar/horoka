@@ -19,6 +19,7 @@
         android:adjustViewBounds="true"
         android:padding="4dp"
         app:img_src="@{horokaPhoto.raw_url}"
+        app:img_id="@{horokaPhoto.id}"
         android:contentDescription="@{horokaPhoto.alt_description}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
