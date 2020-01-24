@@ -20,6 +20,6 @@ interface HorokaDao {
     @Query("SELECT count(*) FROM photos")
     fun countPhotos() : Int
 
-    @Query("SELECT id FROM photos")
-    suspend fun getAllPhotoIds(): List<String>
+    @Query("SELECT id, raw_url FROM photos")
+    suspend fun getAllPhotoIdsAndUrls(): List<IdAndUrl>
 }

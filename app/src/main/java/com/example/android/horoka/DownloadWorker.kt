@@ -15,8 +15,11 @@ class DownloadWorker(val context: Context, downloadWorkerParameters: WorkerParam
 //        sleep()
         val dbDao = HorokaDb.getInstance(context).horokaDao
 
-        val photo = apiService.getPhotos(context.getString(R.string.accessKey), "love", 1)
-        dbDao.insertPhoto(*photo.toTypedArray())
+        val photos = apiService.getPhotos(context.getString(R.string.accessKey), "love", 1)
+        dbDao.insertPhoto(*photos.toTypedArray())
+        val photo = photos[0]
+
+        downloadImageFromUri(photo.id.plus(".jpg"), photo.raw_url, context, inputData.getInt("width",600))
 
         notify(context)
         return Result.success()

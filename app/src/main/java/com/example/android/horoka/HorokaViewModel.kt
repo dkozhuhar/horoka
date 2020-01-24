@@ -5,6 +5,8 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +30,10 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     val horokaPhotos = dbDao.getAllPhotos()
     //First time population DB
     init {
+        val displayMetrics = DisplayMetrics()
+        (app.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.getMetrics(displayMetrics)
+        val thumbnailWidth = displayMetrics.widthPixels/2
+
         viewModelScope.launch {
 //            Deleting for testing purposes
 //            dbDao.deleteAll()
@@ -35,17 +41,32 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
                 getPhotosFromUnsplash()
             }
 //            creating or adding local thumbnails repository
-            var files: Array<String> = app.fileList()
-            val photoIds = dbDao.getAllPhotoIds()
-            for (photoId in photoIds){
+            val files: Array<String> = app.fileList()
+//            Purging local repo for testing purposes
+//            for (file in files){
+//                app.deleteFile(file)
+//            }
 
+
+
+            val photoIdsAndUrls = dbDao.getAllPhotoIdsAndUrls()
+            for (photoIdAndUrl in photoIdsAndUrls){
+                val fileName = photoIdAndUrl.id.plus(".jpg")
+                if (!files.contains(fileName)) {
+                    downloadImageFromUri(fileName,photoIdAndUrl.raw_url,app, thumbnailWidth)
+                }
             }
         }
+
+
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
             .build()
+        val workerParameters = Data.Builder()
+        workerParameters.putInt("thumbnailWidth",thumbnailWidth)
         val periodicWorkRequest = PeriodicWorkRequestBuilder<DownloadWorker>(15,TimeUnit.MINUTES)
             .setConstraints(constraints)
+            .setInputData(workerParameters.build())
             .build()
         WorkManager.getInstance(app).enqueueUniquePeriodicWork("GET_LOVE_EVERYDAY",ExistingPeriodicWorkPolicy.KEEP,periodicWorkRequest)
         sleep()
@@ -69,6 +90,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
             Timber.e(t)
         }
     }
+
 
     suspend fun getPhotoById(id: String): HorokaPhoto? {
         return dbDao.getPhotoById(id)

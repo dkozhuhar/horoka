@@ -55,16 +55,16 @@ fun notify(context: Context) {
     }
 }
 
-suspend fun downloadImageFromUri(filename: String, url: String, context: Context, widthPixels: Int){
+
+fun downloadImageFromUri(filename: String, url: String, context: Context, widthPixels: Int){
     val file = File(context.filesDir, filename)
 //    download file if it doesn't exist
     if (!file.exists()) {
         val urlModified = url.plus("&fm=jpg&crop=entropy&cs=tinysrgb&w=")
             .plus(widthPixels.toString())
-//            .toUri().buildUpon().scheme("https")
-//            .build()
         try {
             val input = URL(urlModified).openStream().buffered().copyTo(file.outputStream())
+            Timber.i("Downloading ".plus(urlModified).plus(" to ").plus(file.absolutePath))
         } catch (error: Throwable){
             Timber.e(error)
         }
