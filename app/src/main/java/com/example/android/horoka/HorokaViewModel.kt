@@ -69,9 +69,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
             .setInputData(workerParameters.build())
             .build()
         WorkManager.getInstance(app).enqueueUniquePeriodicWork("GET_LOVE_EVERYDAY",ExistingPeriodicWorkPolicy.KEEP,periodicWorkRequest)
-        sleep()
-        val workInfo = WorkManager.getInstance(app).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY").get()[0].state
-        Timber.i(workInfo.toString())
+//        sleep()
 
     }
 

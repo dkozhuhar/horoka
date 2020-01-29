@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@{horokaPhoto.alt_description}"
+        app:img_placeholder_src="@{horokaPhoto.id}"
         app:img_src="@{horokaPhoto.raw_url}">
     </ImageView>
 

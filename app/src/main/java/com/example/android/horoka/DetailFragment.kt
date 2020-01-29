@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.work.WorkManager
 import com.example.android.horoka.databinding.FragmentDetailBinding
 
 import com.example.android.horoka.db.HorokaPhoto
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,8 +63,11 @@ class DetailFragment : Fragment() {
 
         // Inflate the layout for this fragment
 
+        val workInfo = WorkManager.getInstance(this.context!!).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY").get()[0].state
+        Timber.i(workInfo.toString())
 
         return binding.root
+
     }
 
     override fun onDestroyView() {
