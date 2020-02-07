@@ -1,18 +1,18 @@
 package com.example.android.horoka
 
-import android.content.Context
-import android.net.Uri
+import android.animation.ObjectAnimator
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.work.WorkManager
 import com.example.android.horoka.databinding.FragmentDetailBinding
 
-import com.example.android.horoka.db.HorokaPhoto
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -47,6 +47,16 @@ class DetailFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
+
+//        Setting FAB animation
+        val displayDensity = Resources.getSystem().displayMetrics.density
+        val fabHeightPx = 24 * displayDensity
+        val fromPx = Resources.getSystem().displayMetrics.heightPixels.toFloat() + fabHeightPx
+
+        ObjectAnimator.ofFloat(binding.fab,"translationY", fromPx , 0f).apply {
+            this.interpolator = DecelerateInterpolator(1f)
+            start()
+        }
 
 //        get arguments from navigations safeargs
         val args: DetailFragmentArgs by navArgs()
