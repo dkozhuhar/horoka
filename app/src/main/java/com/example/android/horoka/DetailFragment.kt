@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import androidx.work.WorkManager
 import com.example.android.horoka.databinding.FragmentDetailBinding
 
@@ -30,7 +31,15 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class DetailFragment : Fragment() {
-    val detailFragmentJob = Job()
+    private val detailFragmentJob = Job()
+
+    //        get arguments from navigations safeargs
+    val args: DetailFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,20 +55,19 @@ class DetailFragment : Fragment() {
         val binding = FragmentDetailBinding.inflate(inflater)
 
         binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
 //        Setting FAB animation
         val displayDensity = Resources.getSystem().displayMetrics.density
         val fabHeightPx = 24 * displayDensity
-        val fromPx = Resources.getSystem().displayMetrics.heightPixels.toFloat() + fabHeightPx
+        val fromPx = 32 * displayDensity
+//            Resources.getSystem().displayMetrics.heightPixels.toFloat()
+            + fabHeightPx
 
         ObjectAnimator.ofFloat(binding.fab,"translationY", fromPx , 0f).apply {
             this.interpolator = DecelerateInterpolator(1f)
             start()
         }
-
-//        get arguments from navigations safeargs
-        val args: DetailFragmentArgs by navArgs()
 
 //        Setting coroutine
         val detailFragmentScope = CoroutineScope(Dispatchers.Main + detailFragmentJob)
@@ -69,6 +77,8 @@ class DetailFragment : Fragment() {
             binding.horokaPhoto = viewModel.getPhotoById(args.imageId)
             binding.executePendingBindings()
         }
+
+
 
 
         // Inflate the layout for this fragment

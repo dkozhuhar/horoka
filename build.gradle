@@ -12,7 +12,7 @@ buildscript {
         moshi_version = "1.9.1"
 
         //navigation
-        navigation_version = "2.1.0"
+        navigation_version = "2.2.1"
     }
 
 

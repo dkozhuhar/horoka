@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/detail_view"
-        android:transitionName="love_image"
+        android:transitionName="@{horokaPhoto.id}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@{horokaPhoto.alt_description}"

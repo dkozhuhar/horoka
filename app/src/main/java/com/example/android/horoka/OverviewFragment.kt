@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.android.horoka.databinding.ItemPhotoBinding
@@ -39,7 +40,11 @@ class OverviewFragment : Fragment() {
 
 
         val onItemClickListener : (ItemPhotoBinding) -> Unit  = {
-            findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(it.horokaPhoto!!.id))
+            val photoId = it.horokaPhoto!!.id
+            val extras = FragmentNavigatorExtras(
+                it.itemPhotoIv to photoId
+            )
+            findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(photoId),extras)
         }
 
         viewModel.horokaPhotos.observe(this, Observer {
