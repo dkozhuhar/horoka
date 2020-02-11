@@ -36,9 +36,16 @@ class DetailFragment : Fragment() {
     //        get arguments from navigations safeargs
     val args: DetailFragmentArgs by navArgs()
 
+    lateinit var viewModel: HorokaViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //get instance of a viewmodel
+        viewModel =
+            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
+                .get(HorokaViewModel::class.java)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+
     }
 
     override fun onCreateView(
@@ -46,23 +53,17 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//get instance of a viewmodel
-        val viewModel: HorokaViewModel =
-            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
-                .get(HorokaViewModel::class.java)
-
 //        inflating binding
         val binding = FragmentDetailBinding.inflate(inflater)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.detailView.transitionName = args.imageId
 
 //        Setting FAB animation
         val displayDensity = Resources.getSystem().displayMetrics.density
         val fabHeightPx = 24 * displayDensity
-        val fromPx = 32 * displayDensity
-//            Resources.getSystem().displayMetrics.heightPixels.toFloat()
-            + fabHeightPx
+        val fromPx = 32 * displayDensity + fabHeightPx
 
         ObjectAnimator.ofFloat(binding.fab,"translationY", fromPx , 0f).apply {
             this.interpolator = DecelerateInterpolator(1f)
@@ -78,16 +79,12 @@ class DetailFragment : Fragment() {
             binding.executePendingBindings()
         }
 
-
-
-
         // Inflate the layout for this fragment
 
         val workInfo = WorkManager.getInstance(this.context!!).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY").get()[0].state
         Timber.i(workInfo.toString())
 
         return binding.root
-
     }
 
     override fun onDestroyView() {
