@@ -1,6 +1,7 @@
 package com.example.android.horoka
 
 import android.animation.ObjectAnimator
+import android.app.ActionBar
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,12 +17,6 @@ import com.example.android.horoka.databinding.FragmentDetailBinding
 
 import kotlinx.coroutines.*
 import timber.log.Timber
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
@@ -34,7 +29,7 @@ class DetailFragment : Fragment() {
     private val detailFragmentJob = Job()
 
     //        get arguments from navigations safeargs
-    val args: DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
 
     lateinit var viewModel: HorokaViewModel
 
@@ -45,7 +40,6 @@ class DetailFragment : Fragment() {
             ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
                 .get(HorokaViewModel::class.java)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-
     }
 
     override fun onCreateView(

@@ -95,6 +95,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun savePhoto(photo: HorokaPhoto) {
+//        TODO: Hit unsplash download endpoint
         val downloadFolder = app.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         val resolver = app.contentResolver
         val downloadRequest =

@@ -5,4 +5,5 @@
     <string name="button_download">Download button</string>
     <string name="notification_title">Your Phone</string>
     <string name="notification_description">loves you</string>
+    <string name="who_loves_you">Who loves you?</string>
 </resources>
