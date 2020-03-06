@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.who_loves -> {
+//                TODO: Implement Dialog with preference
                 Timber.v("Menu item clicked")
                 true
             }
