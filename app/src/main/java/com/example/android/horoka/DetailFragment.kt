@@ -36,9 +36,10 @@ class DetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //get instance of a viewmodel
-        viewModel =
-            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
-                .get(HorokaViewModel::class.java)
+//        viewModel =
+//            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
+//                .get(HorokaViewModel::class.java)
+        viewModel = HorokaViewModel(this.activity!!.application)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 

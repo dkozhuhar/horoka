@@ -4,10 +4,12 @@ import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
 import android.icu.text.CaseMap
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Environment
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -98,10 +100,9 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun savePhoto(photo: HorokaPhoto) {
-//        TODO: Hit unsplash download endpoint
-
-        val downloadFolder = app.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
-        val resolver = app.contentResolver
+        viewModelScope.launch {
+            apiService.hitDownloadLink(photo.download_location,app.getString(R.string.accessKey))
+        }
         val downloadRequest =
             DownloadManager.Request(Uri.parse(photo.raw_url + "&q=85&fm=jpg&crop=entropy&cs=srgb"))
                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)

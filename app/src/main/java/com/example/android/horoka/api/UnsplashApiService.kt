@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.Url
 
 private const val BASE_URL = "https://api.unsplash.com/"
 
@@ -34,6 +35,12 @@ interface UnsplashApiService {
         @Query("query") criteria: String,
         @Query("count") numberOfPhotos: Int
     ): List<HorokaPhoto>
+
+    @GET
+    suspend fun hitDownloadLink(
+        @Url url: String,
+        @Query("client_id") clientId: String
+    )
 }
 
 val apiService: UnsplashApiService by lazy {

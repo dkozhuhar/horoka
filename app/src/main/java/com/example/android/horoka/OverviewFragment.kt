@@ -30,9 +30,8 @@ class OverviewFragment : Fragment() {
 
         val screenWidth = displayMetrics.widthPixels
 
-        val viewModel: HorokaViewModel =
-            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
-                .get(HorokaViewModel::class.java)
+        val viewModel = HorokaViewModel(this.activity!!.application)
+
         view.button.setOnClickListener { viewModel.notifyMe() }
         view.main_recycler_view.setHasFixedSize(true)
         view.main_recycler_view.layoutManager =
@@ -47,7 +46,7 @@ class OverviewFragment : Fragment() {
             findNavController().navigate(OverviewFragmentDirections.actionOverviewFragmentToDetailFragment(photoId),extras)
         }
 
-        viewModel.horokaPhotos.observe(this, Observer {
+        viewModel.horokaPhotos.observe(viewLifecycleOwner, Observer {
             view.main_recycler_view.adapter = null
             view.main_recycler_view.layoutManager = null
             view.main_recycler_view.layoutManager =
