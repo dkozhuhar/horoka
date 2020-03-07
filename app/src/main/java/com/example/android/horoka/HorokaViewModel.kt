@@ -3,6 +3,7 @@ package com.example.android.horoka
 import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
+import android.icu.text.CaseMap
 import android.net.Uri
 import android.os.Environment
 import android.util.DisplayMetrics
@@ -26,6 +27,8 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
     private val dbDao = HorokaDb.getInstance(app).horokaDao
 
     private val viewModelScope = CoroutineScope(Dispatchers.IO + vieModelJob)
+
+    private val sharedPref = app.getSharedPreferences(app.getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
     val horokaPhotos = dbDao.getAllPhotos()
     //First time population DB
@@ -96,6 +99,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun savePhoto(photo: HorokaPhoto) {
 //        TODO: Hit unsplash download endpoint
+
         val downloadFolder = app.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         val resolver = app.contentResolver
         val downloadRequest =
@@ -103,10 +107,21 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
                 .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
                 .setTitle(photo.alt_description)
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/test.jpg")
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "")
 
         val downloadManager = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadID = downloadManager.enqueue(downloadRequest)
+    }
+
+    fun getNotificationTitle(context: Context) : String {
+        return sharedPref.getString(context.getString(R.string.who_loves_you_key),context.getString(R.string.notification_title)) ?: context.getString(R.string.notification_title)
+    }
+
+    fun setNotificationTitle(context: Context, newTitle: String) {
+        with (sharedPref.edit()) {
+            putString(context.getString(R.string.who_loves_you_key),newTitle)
+            apply()
+        }
     }
 
     override fun onCleared() {

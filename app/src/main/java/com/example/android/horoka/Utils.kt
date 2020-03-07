@@ -40,10 +40,11 @@ fun notify(context: Context) {
         //        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
     val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
-
+    val sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+    val notificationTitle = sharedPref.getString(context.getString(R.string.who_loves_you_key),context.getString(R.string.notification_title)) ?: context.getString(R.string.notification_title)
     val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.horokaNotificationChannel))
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentTitle(context.getString(R.string.notification_title))
+        .setContentTitle(notificationTitle)
         .setContentText(context.getString(R.string.notification_description))
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setContentIntent(pendingIntent)

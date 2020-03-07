@@ -3,5 +3,7 @@
     <string name="app_name">Хорока</string>
     <string name="button_download">Скачать</string>
     <string name="notification_description">любит тебя</string>
-    <string name="notification_title">Дивока</string>
+    <string name="notification_title">Твой телефон</string>
+    <string name="who_loves_you">Кто любит тебя?</string>
+    <string name="cancel">Отменить</string>
 </resources>

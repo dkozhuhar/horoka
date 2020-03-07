@@ -23,4 +23,7 @@
             android:name="imageId"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/dialogFragment"
+        android:name="com.example.android.horoka.SettingsDialogFragment" />
 </navigation>

@@ -1,17 +1,12 @@
 package com.example.android.horoka
 
-import android.graphics.Point
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.android.horoka.db.HorokaDb
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             R.id.who_loves -> {
 //                TODO: Implement Dialog with preference
                 Timber.v("Menu item clicked")
+                findNavController(this,R.id.nav_host_fragment).navigate(R.id.dialogFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
