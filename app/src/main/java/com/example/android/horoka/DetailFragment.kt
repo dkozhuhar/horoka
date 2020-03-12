@@ -1,22 +1,23 @@
 package com.example.android.horoka
 
 import android.animation.ObjectAnimator
-import android.app.ActionBar
 import android.content.res.Resources
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import androidx.work.WorkManager
 import com.example.android.horoka.databinding.FragmentDetailBinding
-
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
+
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
@@ -31,7 +32,7 @@ class DetailFragment : Fragment() {
     //        get arguments from navigations safeargs
     private val args: DetailFragmentArgs by navArgs()
 
-    lateinit var viewModel: HorokaViewModel
+    private lateinit var viewModel: HorokaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

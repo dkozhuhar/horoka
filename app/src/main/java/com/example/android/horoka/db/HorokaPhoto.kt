@@ -1,10 +1,9 @@
 package com.example.android.horoka.db
 
 
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import java.time.Instant
 
 @Entity(tableName = "photos")
 data class HorokaPhoto(

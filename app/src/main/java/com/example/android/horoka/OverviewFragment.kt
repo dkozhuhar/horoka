@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -32,7 +30,7 @@ class OverviewFragment : Fragment() {
 
         val viewModel = HorokaViewModel(this.activity!!.application)
 
-        view.button.setOnClickListener { viewModel.notifyMe() }
+
         view.main_recycler_view.setHasFixedSize(true)
         view.main_recycler_view.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

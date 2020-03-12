@@ -7,7 +7,7 @@ import com.example.android.horoka.databinding.ItemPhotoBinding
 import com.example.android.horoka.db.HorokaPhoto
 import timber.log.Timber
 
-class PhotoAdapter(val photos: List<HorokaPhoto>, val width: Int, val onItemCLickListener: (ItemPhotoBinding) -> Unit) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val photos: List<HorokaPhoto>, val width: Int, val onItemCLickListener: (ItemPhotoBinding) -> Unit) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 init {
     Timber.i("Initializing")
 }
@@ -38,7 +38,7 @@ init {
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
 
 //        Timber.e("Loading URI: " + mListOfPhotos.get(position))
-        val horokaPhoto = photos.get(position)
+        val horokaPhoto = photos[position]
         holder.binding.horokaPhoto = horokaPhoto
         holder.itemView.setOnClickListener{
             onItemCLickListener(holder.binding)

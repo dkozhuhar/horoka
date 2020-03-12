@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import okhttp3.internal.Internal.instance
 
-@Database(entities = arrayOf(HorokaPhoto::class), version = 2, exportSchema = false)
+@Database(entities = [HorokaPhoto::class], version = 2, exportSchema = false)
 abstract class HorokaDb : RoomDatabase(){
     abstract val horokaDao: HorokaDao
 

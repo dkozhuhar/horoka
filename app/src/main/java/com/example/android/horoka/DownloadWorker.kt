@@ -1,13 +1,10 @@
 package com.example.android.horoka
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.android.horoka.api.apiService
 import com.example.android.horoka.db.HorokaDb
-import timber.log.Timber
 
 class DownloadWorker(val context: Context, downloadWorkerParameters: WorkerParameters) : CoroutineWorker(context, downloadWorkerParameters){
     override suspend fun doWork(): Result {

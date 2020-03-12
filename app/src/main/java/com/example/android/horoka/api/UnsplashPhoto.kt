@@ -1,8 +1,6 @@
 package com.example.android.horoka.api
 
-import android.os.Parcelable
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
 
 //Transient fields are fields I don't care about
 @JsonClass(generateAdapter = true)

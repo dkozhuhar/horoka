@@ -3,13 +3,10 @@ package com.example.android.horoka
 import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
-import android.icu.text.CaseMap
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Environment
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +14,10 @@ import androidx.work.*
 import com.example.android.horoka.api.apiService
 import com.example.android.horoka.db.HorokaDb
 import com.example.android.horoka.db.HorokaPhoto
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
