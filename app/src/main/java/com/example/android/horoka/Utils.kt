@@ -43,7 +43,7 @@ fun notify(context: Context) {
     val sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE)
     val notificationTitle = sharedPref.getString(context.getString(R.string.who_loves_you_key),context.getString(R.string.notification_title)) ?: context.getString(R.string.notification_title)
     val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.horokaNotificationChannel))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.ic_favorite_black_24dp)
         .setContentTitle(notificationTitle)
         .setContentText(context.getString(R.string.notification_description))
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
