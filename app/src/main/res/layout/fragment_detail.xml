@@ -6,9 +6,6 @@
         <variable
             name="horokaPhoto"
             type="com.example.android.horoka.db.HorokaPhoto" />
-        <variable
-            name="viewModel"
-            type="com.example.android.horoka.HorokaViewModel" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"
@@ -31,7 +28,6 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_file_download_black_24dp"
         android:contentDescription="@string/button_download"
-        android:onClick="@{() -> viewModel.savePhoto(horokaPhoto)}"
         android:layout_margin="32dp" />
 
 </FrameLayout>

@@ -8,8 +8,7 @@ import androidx.navigation.Navigation.findNavController
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-
-//    Initiate nav_host
+    //    Initiate nav_host
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.who_loves -> {
-//                TODO: Implement Dialog with preference
                 Timber.v("Menu item clicked")
                 findNavController(this,R.id.nav_host_fragment).navigate(R.id.dialogFragment)
                 true

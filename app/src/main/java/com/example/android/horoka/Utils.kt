@@ -1,9 +1,11 @@
 package com.example.android.horoka
 
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -11,6 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import timber.log.Timber
 import java.io.File
 import java.net.URL
+
 
 /*
 Notification Utils
@@ -83,4 +86,15 @@ fun sleep(){
         Timber.e(e)
 
     }
+}
+
+fun getActivity(context: Context) :Activity? {
+    var mContext = context
+    while (mContext is ContextWrapper) {
+        if (mContext is Activity) {
+            return mContext
+        }
+        mContext = mContext.baseContext
+    }
+    return null
 }
