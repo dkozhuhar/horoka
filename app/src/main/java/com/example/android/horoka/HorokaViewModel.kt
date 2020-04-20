@@ -73,6 +73,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
         val constraints = Constraints.Builder()
             .setRequiresBatteryNotLow(true)
+            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val workerParameters = Data.Builder()
         workerParameters.putInt("thumbnailWidth", thumbnailWidth)
@@ -120,6 +121,7 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
         val downloadManager = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadID = downloadManager.enqueue(downloadRequest)
+        Timber.v("Download " + downloadID.toString() + " started")
 
         viewModelScope.launch {
             apiService.hitDownloadLink(

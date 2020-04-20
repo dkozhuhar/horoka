@@ -85,16 +85,15 @@ class DetailFragment : Fragment() {
             binding.horokaPhoto = horokaPhoto
 
             binding.fab.setOnClickListener {
-                //        Checking permission
+                //        Checking WRITE_EXTERNAL_STORAGE permission
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (it.context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED
-                    ) {
+                    if (it.context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(
                             getActivity(it.context)!!,
                             arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
-                        )
+                            MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE)
+                    } else {
+                        viewModel.savePhoto(binding.horokaPhoto!!)
                     }
                 } else {
                     viewModel.savePhoto(binding.horokaPhoto!!)
