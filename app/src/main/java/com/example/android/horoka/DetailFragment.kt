@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -85,6 +86,11 @@ class DetailFragment : Fragment() {
             binding.horokaPhoto = horokaPhoto
 
             binding.fab.setOnClickListener {
+//                Checking Network Status
+                if (!NetworkCallbackImp.isConnected) {
+                    Toast.makeText(it.context,"No internet connection",Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 //        Checking WRITE_EXTERNAL_STORAGE permission
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (it.context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

@@ -1,5 +1,8 @@
 package com.example.android.horoka
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,10 +11,14 @@ import androidx.navigation.Navigation.findNavController
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    //    Initiate nav_host
 
+    private lateinit var connectivityManager : ConnectivityManager
+    //    Initiate nav_host
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//    This is for tracking Network Status
+        connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerNetworkCallback(NetworkRequest.Builder().build(), NetworkCallbackImp)
         Timber.plant(Timber.DebugTree())
         setContentView(R.layout.activity_main)
     }
