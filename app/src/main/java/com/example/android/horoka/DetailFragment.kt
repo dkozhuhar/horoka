@@ -11,9 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -37,7 +35,7 @@ import timber.log.Timber
 class DetailFragment : Fragment() {
     private val detailFragmentJob = Job()
 
-    val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1
+    private val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1
 
     //        get arguments from navigations safeargs
     private val args: DetailFragmentArgs by navArgs()
@@ -48,10 +46,8 @@ class DetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //get instance of a viewmodel
-//        viewModel =
-//            ViewModelProviders.of(this, HorokaViewModel.Factory(this.activity!!.application))
-//                .get(HorokaViewModel::class.java)
-        viewModel = HorokaViewModel(this.activity!!.application)
+
+        viewModel = HorokaViewModel(this.requireActivity().application)
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
@@ -111,7 +107,7 @@ class DetailFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val workInfo =
-            WorkManager.getInstance(this.context!!).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY")
+            WorkManager.getInstance(this.requireContext()).getWorkInfosForUniqueWork("GET_LOVE_EVERYDAY")
                 .get()[0].state
         Timber.i(workInfo.toString())
 

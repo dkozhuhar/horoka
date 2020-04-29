@@ -1,19 +1,13 @@
 package com.example.android.horoka
 
-import android.Manifest
 import android.app.Application
 import android.app.DownloadManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Environment
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.work.*
 import com.example.android.horoka.api.apiService
 import com.example.android.horoka.db.HorokaDb
@@ -121,8 +115,8 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
 
         val downloadManager = app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadID = downloadManager.enqueue(downloadRequest)
-        Timber.v("Download " + downloadID.toString() + " started")
-
+        Timber.v("Download %s started",   downloadID.toString())
+// Hitting download endpoint according to Unsplash API guideline
         viewModelScope.launch {
             apiService.hitDownloadLink(
                 photo.download_location,
@@ -150,13 +144,4 @@ class HorokaViewModel(val app: Application) : AndroidViewModel(app) {
         vieModelJob.cancel()
     }
 
-    class Factory(val app: Application) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HorokaViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return HorokaViewModel(app) as T
-            }
-            throw IllegalArgumentException("Unable to construct viewmodel")
-        }
-    }
 }

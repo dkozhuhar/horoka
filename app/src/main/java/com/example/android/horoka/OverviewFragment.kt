@@ -24,11 +24,11 @@ class OverviewFragment : Fragment() {
 //        return super.onCreateView(inflater, container, savedInstanceState)
         val displayMetrics = DisplayMetrics()
         val view = inflater.inflate(R.layout.fragment_overview, container, false)
-        this.activity!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        this.requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         val screenWidth = displayMetrics.widthPixels
 
-        val viewModel = HorokaViewModel(this.activity!!.application)
+        val viewModel = HorokaViewModel(this.requireActivity().application)
 
 
         view.main_recycler_view.setHasFixedSize(true)

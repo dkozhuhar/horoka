@@ -78,16 +78,6 @@ fun downloadImageFromUri(filename: String, url: String, context: Context, widthP
 Testing Utils
 */
 
-// Introducing lag
-fun sleep(){
-    try {
-        Thread.sleep(5000)
-    } catch (e: InterruptedException){
-        Timber.e(e)
-
-    }
-}
-
 fun getActivity(context: Context) :Activity? {
     var mContext = context
     while (mContext is ContextWrapper) {

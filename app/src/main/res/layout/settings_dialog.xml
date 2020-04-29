@@ -19,6 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/who_loves_value"
+        android:hint="@string/who_loves_you"
+        android:autofillHints="name"
         android:inputType="textAutoCorrect">
     </EditText>
 </LinearLayout>
