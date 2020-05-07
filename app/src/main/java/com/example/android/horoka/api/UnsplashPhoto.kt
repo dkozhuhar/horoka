@@ -20,7 +20,7 @@ data class UnsplashPhoto (
     val likes: Int,
     @Transient val liked_by_user: Boolean = false,
     @Transient val current_user_collections: List<String> = arrayListOf(""),
-    @Transient val user: String = "stubUser",
+    val user: UnsplashUser,
     @Transient val exif: String = "stubExif",
     @Transient val location: String = "stubLocation"
 )

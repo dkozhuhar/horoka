@@ -18,7 +18,9 @@ class ResponseAdapter {
             unsplashPhoto.alt_description,
             unsplashPhoto.urls.raw,
             unsplashPhoto.links.download_location,
-            System.currentTimeMillis() / 1000L
+            System.currentTimeMillis() / 1000L,
+            unsplashPhoto.user.name,
+            unsplashPhoto.user.links.html
         )
     }
 
@@ -34,7 +36,8 @@ class ResponseAdapter {
             alt_description = horokaPhoto.alt_description,
             urls = UnsplashUrls(null, null, null, null, horokaPhoto.raw_url),
             links = UnsplashLinks(null, null, null, horokaPhoto.download_location),
-            likes = horokaPhoto.likes
+            likes = horokaPhoto.likes,
+            user = UnsplashUser(name = horokaPhoto.user_name, links = UnsplashUserLinks(html = horokaPhoto.user_link))
         )
     }
 }
