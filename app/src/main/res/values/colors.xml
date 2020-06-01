@@ -7,6 +7,7 @@
     <color name="primaryDarkColor">#a00037</color>
     <color name="secondaryColor" tools:keep="@color/secondaryColor">#ff4081</color>
     <color name="secondaryLightColor">#ff79b0</color>
+    <color name="secondaryLightColorSemiTransparent">#50ff79b0</color>
     <color name="secondaryDarkColor">#c60055</color>
     <color name="primaryTextColor" tools:keep="@color/primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor" tools:keep="@color/secondaryTextColor">#000000</color>

@@ -10,4 +10,5 @@
     <string name="ok" translatable="false">OK</string>
     <string name="cancel">Cancel</string>
     <string name="preference_file_key" translatable="false">com.example.android.horoka.preference_1</string>
+    <string name="unsplash_attribution_string">Photo by <a href="%1$s?utm_source=your_app_name&amp;utm_medium=referral">%2$s</a> on <a href="https://unsplash.com/?utm_source=your_app_name&amp;utm_medium=referral">Unsplash</a></string>
 </resources>

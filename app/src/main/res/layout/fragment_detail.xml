@@ -18,13 +18,21 @@
         android:layout_height="match_parent"
         android:contentDescription="@{horokaPhoto.alt_description}"
         app:img_placeholder_src="@{horokaPhoto.id}"
+        android:textStyle="bold"
         app:img_src="@{horokaPhoto.raw_url}">
     </ImageView>
 
     <TextView
+        android:id="@+id/unsplash_attribution"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|center_horizontal"
+        tools:text="Photo by Annie Spratt on Unsplash"
+        app:unsplash_username="@{horokaPhoto.user_name}"
+        app:unsplash_user_link="@{horokaPhoto.user_link}"
+        
+        android:gravity="center_horizontal"
+        android:background="@color/secondaryLightColorSemiTransparent"
         >
 
     </TextView>

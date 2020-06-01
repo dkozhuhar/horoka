@@ -6,4 +6,5 @@
     <string name="notification_title">Твой телефон</string>
     <string name="who_loves_you">Кто любит тебя?</string>
     <string name="cancel">Отменить</string>
+    <string name="unsplash_attribution_string">Фото <a href="%1$s?utm_source=your_app_name&amp;utm_medium=referral">%2$s</a> на <a href="https://unsplash.com/?utm_source=your_app_name&amp;utm_medium=referral">Unsplash</a></string>
 </resources>
